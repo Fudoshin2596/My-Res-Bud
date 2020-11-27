@@ -6,6 +6,8 @@ from django.db.models import Q
 from .models import Resturant
 from users.schema import UserType
 
+from utils.googleapi import ResturantInfo
+from utils.googleapi import GMAPS_API_KEY
 
 class ResturantType(DjangoObjectType):
     class Meta:
@@ -31,22 +33,28 @@ class CreateResturant(graphene.Mutation):
 
     class Arguments:
         name = graphene.String()
-        address = graphene.String()
+        # address = graphene.String()
         notes = graphene.String()
-        rating = graphene.Int()
-        price = graphene.String()
-        phone_number = graphene.String()
-        website = graphene.String()
-        slug = graphene.String()
+        # rating = graphene.Int()
+        # price = graphene.String()
+        # phone_number = graphene.String()
+        # website = graphene.String()
+        # slug = graphene.String()
 
-    def mutate(self, info, name, address, notes, rating, price, phone_number, website, slug):
+    def mutate(self, info, name, notes): #), address, rating, price, phone_number, website, slug):
         user = info.context.user
+        userlocation = 'New York, NY'
 
         if user.is_anonymous:
             raise GraphQLError('Log in to add a resturant.')
 
-        resturant = Resturant(name=name, address=address, notes=notes, rating=rating, price=price, phone_number=phone_number, website=website, slug=slug,
-                      posted_by=user)
+        ResturantObject = ResturantInfo(name, GMAPS_API_KEY, userlocation)
+        info = ResturantObject.placeInfo()
+
+        resturant = Resturant(name=info['name'], address=info['address'],
+                    notes=notes, rating=info['rating'], price=info['price'],
+                    phone_number=info['phonenumber'], website=info['website'], slug=info['id'],
+                    posted_by=user)
         resturant.save()
         return CreateResturant(resturant=resturant)
 
