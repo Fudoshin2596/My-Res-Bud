@@ -2,19 +2,19 @@ import React from 'react';
 import { render } from 'react-dom';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
-import Root from "./Root";
-
+import CreateResturant from "./components/Resturants/CreateResturant"
+import ResturantList from "./components/Resturants/ResturantList"
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql/',
+  uri: "http://localhost:8000/graphql/",
   cache: new InMemoryCache()
 });
 
-export default function App() {
+function App() {
   return (
-      <ApolloProvider client={client}>
-          <Root />
-      </ApolloProvider>
+    <ApolloProvider client={client}>
+      <ResturantList />
+    </ApolloProvider>
   );
 }
 

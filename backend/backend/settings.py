@@ -59,16 +59,16 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'graphql_jwt.backends.JSONWebTokenBackend',
+    # 'graphql_jwt.backends.JSONWebTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
 #Graphene Schema
 GRAPHENE = {
     'SCHEMA': 'backend.schema.schema',
-    'MIDDLEWARE': [
-    'graphql_jwt.middleware.JSONWebTokenMiddleware',
-    ]
+    # 'MIDDLEWARE': [
+    # 'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    # ]
 }
 
 MIDDLEWARE = [
