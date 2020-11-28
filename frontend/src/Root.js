@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import withRoot from "./withRoot";
+import withTheme from "./withTheme";
 
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -46,4 +46,4 @@ function ResturantQuery() {
   ));
 }
 
-export default withRoot(ResturantQuery);
+export default withTheme(ResturantQuery);
