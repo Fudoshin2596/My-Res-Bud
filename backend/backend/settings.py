@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3w&mau5zul(gnvh$s+f8(gmi+esacc_x!o*^=yip-kv(w5yp42'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -52,7 +54,6 @@ SHELL_PLUS = "ipython"
 # allow webpack development server to make cross-request
 # https://github.com/adamchainz/django-cors-headers
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
     'http://localhost:8000',
     'http://localhost:3000',
 ]
@@ -109,8 +110,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'myresbackend',
-        'USER': 'postgres',
-        'PASSWORD': 'Qnacmg797y',
+        'USER': os.getenv("POSTGRES_USER"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -159,6 +160,3 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
-GOOGLE_MAPS_API_KEY = 'AIzaSyApqkObONr94Nms-QYVbGEP2nzGQrwgoC4'

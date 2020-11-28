@@ -1,8 +1,12 @@
 import googlemaps
 import json
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-GMAPS_API_KEY = "AIzaSyB82T513Cr6TiZN4EPdzYnCYx5Ak1FIcfU"
+GMAPS_API_KEY = os.getenv("GMAPS_API_KEY")
 
+#https://googlemaps.github.io/google-maps-services-python/docs/index.html#module-googlemaps
 class ResturantInfo:
     def __init__(self, query, key, userlocation):
         self.query = query
@@ -41,10 +45,10 @@ class ResturantInfo:
 
 
 # userlocation = 'New York, NY'
-# query = 'citizens of bleecker'
+# query = 'bluestone lane'
 # TestResturant = ResturantInfo(query, GMAPS_API_KEY, userlocation)
 # info = TestResturant.placeInfo()
-# print(info)
+# print(json.dumps(info, indent=4))
 
 # gmaps = googlemaps.Client(key=GMAPS_API_KEY)
 # findplace_result = gmaps.find_place(query, input_type='textquery')
