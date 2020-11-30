@@ -4,6 +4,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
 import CreateResturant from "./components/Resturants/CreateResturant"
 import ResturantList from "./components/Resturants/ResturantList"
+import ChatBot from "./pages/ChatBot"
 
 const client = new ApolloClient({
   uri: "http://localhost:8000/graphql/",
@@ -13,7 +14,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <ResturantList />
+      <ChatBot />
     </ApolloProvider>
   );
 }

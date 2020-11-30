@@ -3,7 +3,6 @@ import myresbud.schema
 import users.schema
 # import graphql_jwt
 
-
 class Query(users.schema.Query, myresbud.schema.Query, graphene.ObjectType):
     pass
 

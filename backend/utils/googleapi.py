@@ -45,7 +45,7 @@ class ResturantInfo:
 
 
 # userlocation = 'New York, NY'
-# query = 'bluestone lane'
+# query = 'Minetta Tavern'
 # TestResturant = ResturantInfo(query, GMAPS_API_KEY, userlocation)
 # info = TestResturant.placeInfo()
 # print(json.dumps(info, indent=4))

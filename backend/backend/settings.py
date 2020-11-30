@@ -28,8 +28,10 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = True
 
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+        'e724a54a57c7.ngrok.io',
+        'localhost' 
+]
 
 # Application definition
 

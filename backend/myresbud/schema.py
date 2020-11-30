@@ -21,7 +21,8 @@ class Query(graphene.ObjectType):
         if search:
             filter = (
                 Q(name__icontains=search) |
-                Q(address__icontains=search)
+                Q(address__icontains=search) |
+                Q(rating__icontains=search)
             )
             return Resturant.objects.filter(filter)
 
