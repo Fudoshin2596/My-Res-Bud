@@ -1,10 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-# import csrf fro CSRF protection
 from django.views.decorators.csrf import csrf_exempt
-# import df_library 
 from library.df_response_lib import *
-# import json to get json request
+from utils.graphql_functions import GQL_SEARCH
 import json
 from itertools import islice, count
 
@@ -36,11 +34,18 @@ def webhook(request):
     action = req.get('queryResult').get('action')
     # get all params
     parameters = req.get('queryResult').get('parameters')
-    address = parameters['location']['street-address']
-    rating = get_rating(parameters)
-    sortparams = parameters['sort']
-    spec = f'{address}, {rating}, {sortparams}'
-    out = json.dumps(spec, indent=4)  
+    try:
+        address = parameters['location']['street-address']
+    except Exception as e:
+        address = "New York"
+    try:
+        rating = get_rating(parameters)
+    except Exception as e:
+        rating = 0
+    # sortparams = parameters['sort']
+    spec = GQL_SEARCH(str(rating))
+    ans = spec
+    out = json.dumps(ans, indent=4)  
     # return a fulfillment message 
     fulfillmentText = {'fulfillmentText': out} 
     # return response 

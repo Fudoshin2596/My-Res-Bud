@@ -14,6 +14,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -29,8 +30,9 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = [
-        'e724a54a57c7.ngrok.io',
-        'localhost' 
+        'd74b4c90779c.ngrok.io',
+        '127.0.0.1',
+        'localhost',
 ]
 
 # Application definition

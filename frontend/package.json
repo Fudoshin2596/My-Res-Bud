@@ -13,14 +13,19 @@
     "@apollo/react-hooks": "^4.0.0",
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.9.1",
+    "api-ai-javascript": "^2.0.0-beta.21",
     "apollo-boost": "^0.4.9",
+    "axios": "^0.21.0",
     "clsx": "latest",
     "graphql": "^15.4.0",
+    "milligram": "^1.4.1",
     "react": "latest",
     "react-dom": "latest",
     "react-helmet": "^6.1.0",
+    "react-redux": "^7.2.2",
     "react-scripts": "latest",
-    "react-typekit": "^1.1.4"
+    "react-typekit": "^1.1.4",
+    "redux": "^4.0.5"
   },
   "browserslist": {
     "production": [
