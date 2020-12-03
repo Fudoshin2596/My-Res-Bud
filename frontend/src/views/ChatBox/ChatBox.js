@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
+import Container from '@material-ui/core/Container';
 
-// import Container from '@material-ui/core/Container';
+function ChatBox() {
+  return (
+    <Container >
+        <meta name="viewport" content="width-device-width, initial-scale=1" />
+        <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+        <iframe id="iframe" allow="microphone;" width="875" height="800" src="https://console.dialogflow.com/api-client/demo/embedded/cecffa92-4622-4969-b78f-a45134699444"></iframe>
+    </Container>
+  );
+}
 
-// function ChatBox() {
-//   return (
-//     // <Container >
-//     //     <meta name="viewport" content="width-device-width, initial-scale=1" />
-//     //     <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
-//     //     <iframe id="iframe" allow="microphone;" width="875" height="800" src="https://console.dialogflow.com/api-client/demo/embedded/cecffa92-4622-4969-b78f-a45134699444"></iframe>
-//     // </Container>
-//   );
-// }
-
-class ChatBox extends Component {
+class XChatBox extends Component {
   constructor(props) {
     super(props);
   }
@@ -30,5 +29,6 @@ render() {
       <div></div>
     )
   }
+
 }
 export default ChatBox;
