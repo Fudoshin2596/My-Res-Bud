@@ -58,14 +58,14 @@ class UpdateResturant(graphene.Mutation):
     resturant = graphene.Field(ResturantType)
 
     class Arguments:
-        resturant_id = graphene.ID(required=True)
+        id = graphene.ID(required=True)
         name = graphene.String()
         address = graphene.String()
         phone_number = graphene.String()
 
-    def mutate(self, info, resturant_id, name, address, phone_number):
+    def mutate(self, info, id, name, address, phone_number):
         # user = info.context.user
-        resturant = Resturant.objects.get(id=resturant_id)
+        resturant = Resturant.objects.get(id=id)
 
         # if resturant.posted_by != user:
         #     raise GraphQLError('Not permitted to update this record.')
@@ -80,21 +80,21 @@ class UpdateResturant(graphene.Mutation):
 
 
 class DeleteResturant(graphene.Mutation):
-    resturant_id = graphene.ID()
+    id = graphene.ID()
 
     class Arguments:
-        resturant_id = graphene.ID(required=True)
+        id = graphene.ID(required=True)
 
-    def mutate(self, info, resturant_id):
+    def mutate(self, info, id):
         # user = info.context.user
-        resturant = Resturant.objects.get(id=resturant_id)
+        resturant = Resturant.objects.get(id=id)
 
         # if resturant.posted_by != user:
         #     raise GraphQLError('Not permitted to delete this record.')
 
         resturant.delete()
 
-        return DeleteResturant(resturant_id=resturant_id)
+        return DeleteResturant(id=id)
 
 
 
