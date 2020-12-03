@@ -1,5 +1,5 @@
 import React from 'react';
-import './Root.css';
+import './Home.css';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import gql from "graphql-tag";
 import Button from '@material-ui/core/Button';
@@ -12,6 +12,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,7 +72,9 @@ function Home() {
 
   return (
   <div className={classes.root}>
-  <h3>Create New Restruant</h3>
+  <Typography variant="h6" className={classes.title}>
+  Add New Restruant
+  </Typography>
   <form className={classes.root} onSubmit={e => {
     e.preventDefault();
     createResturant({ variables: { name: input.value } });

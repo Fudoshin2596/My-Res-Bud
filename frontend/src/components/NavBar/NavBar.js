@@ -31,7 +31,7 @@ const NavBar = () => {
             My Res Bud App
           </Typography>
           <Button color="inherit"><Link to="/Home">Home</Link></Button>
-          <Button color="inherit"><Link to="/About">About</Link></Button>
+          <Button color="inherit"><Link to="/ChatBox">ChatBox</Link></Button>
         </Toolbar>
       </AppBar>
     </div>
