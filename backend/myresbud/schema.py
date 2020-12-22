@@ -8,6 +8,9 @@ from users.schema import UserType
 
 from utils.googleapi import ResturantInfo
 from utils.googleapi import GMAPS_API_KEY
+from utils.zomatoapi import Zomato
+
+ZomatoObj = Zomato()
 
 class ResturantType(DjangoObjectType):
     class Meta:
@@ -21,6 +24,7 @@ class Query(graphene.ObjectType):
         if search:
             filter = (
                 Q(name__icontains=search) |
+                Q(cuisines__icontains=search) |
                 Q(address__icontains=search) |
                 Q(rating__icontains=search)
             )
@@ -46,9 +50,16 @@ class CreateResturant(graphene.Mutation):
         ResturantObject = ResturantInfo(name, GMAPS_API_KEY, userlocation)
         info = ResturantObject.placeInfo()
 
+        passers = ZomatoObj.match(name)
+        if passers is not None:
+            cuisines = passers[0][1]['cuisines']
+        else:
+            cuisines = 'Unknown'
+
         resturant = Resturant(name=info['name'], address=info['address'],
                     notes="", rating=info['rating'], price=info['price'],
-                    phone_number=info['phonenumber'], website=info['website'], slug=info['id'],
+                    phone_number=info['phonenumber'], website=info['website'], 
+                    slug=info['id'], cuisines=cuisines
                     ) #posted_by=user
         resturant.save()
         return CreateResturant(resturant=resturant)
@@ -62,8 +73,9 @@ class UpdateResturant(graphene.Mutation):
         name = graphene.String()
         address = graphene.String()
         phone_number = graphene.String()
+        notes = graphene.String()
 
-    def mutate(self, info, id, name, address, phone_number):
+    def mutate(self, info, id, name, address, phone_number, notes):
         # user = info.context.user
         resturant = Resturant.objects.get(id=id)
 
@@ -73,6 +85,7 @@ class UpdateResturant(graphene.Mutation):
         resturant.name = name
         resturant.address = address
         resturant.phone_number = phone_number
+        resturant.notes = notes
 
         resturant.save()
 

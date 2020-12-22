@@ -14,6 +14,7 @@ def GQL_SEARCH(query_term):
         price
         phoneNumber
         website
+        cuisines
         }
     }
     """
