@@ -32,6 +32,7 @@ Deployment Link: TBU
 - GraphQL (Graphene)
 - Google Maps API
 - Google Dialogflow (Chatbot)
+- Zomato API
 
 #### Frontend
 

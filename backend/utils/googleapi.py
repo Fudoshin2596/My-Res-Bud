@@ -44,17 +44,17 @@ class ResturantInfo:
                 }
 
 
-userlocation = 'New York, NY'
-query = 'Citizens of Bleecker'
-# TestResturant = ResturantInfo(query, GMAPS_API_KEY, userlocation)
-# info = TestResturant.placeInfo()
-# print(json.dumps(info, indent=4))
-addy = '113 MacDougal St, New York, NY 10012, USA'
-p_id = 'ChIJ503oJJJZwokRNAqTl3ASLOE'
-gmaps = googlemaps.Client(key=GMAPS_API_KEY)
-# findplace_result = gmaps.find_place(query, input_type='textquery')
-geo_code = gmaps.geocode(query)
-regeo_code = gmaps.places_autocomplete_query(input_text='Thai food in Soho NY')
-# placeid = findplace_result['candidates'][0]['place_id']
-# place_result = gmaps.place(place_id=placeid)
-print(json.dumps(regeo_code, indent=2))
+# userlocation = 'New York, NY'
+# query = 'Citizens of Bleecker'
+# # TestResturant = ResturantInfo(query, GMAPS_API_KEY, userlocation)
+# # info = TestResturant.placeInfo()
+# # print(json.dumps(info, indent=4))
+# addy = '113 MacDougal St, New York, NY 10012, USA'
+# p_id = 'ChIJ503oJJJZwokRNAqTl3ASLOE'
+# gmaps = googlemaps.Client(key=GMAPS_API_KEY)
+# # findplace_result = gmaps.find_place(query, input_type='textquery')
+# geo_code = gmaps.geocode(query)
+# regeo_code = gmaps.places_autocomplete_query(input_text='Thai food in Soho NY')
+# # placeid = findplace_result['candidates'][0]['place_id']
+# # place_result = gmaps.place(place_id=placeid)
+# print(json.dumps(regeo_code, indent=2))

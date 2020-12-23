@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from utils.df_response_lib import *
-from utils.graphql_functions import GQL_SEARCH
+from utils.ql_functions import GQL_SEARCH
 import json
 from itertools import islice, count
 
@@ -42,10 +42,16 @@ def webhook(request):
         rating = get_rating(parameters)
     except Exception as e:
         rating = 0
+    
     # sortparams = parameters['sort']
-    spec = GQL_SEARCH(str(rating))
-    ans = spec
-    out = json.dumps(ans, indent=4)  
+    
+    if len(parameters['cuisine']) > 1:
+        cuisine = ''.join(parameters['cuisine'][0])
+    else:
+        cuisine = ''.join(parameters['cuisine'])
+
+    spec = GQL_SEARCH(cuisine)
+    out = json.dumps(spec, indent=4)
     # return a fulfillment message 
     fulfillmentText = {'fulfillmentText': out} 
     # return response 

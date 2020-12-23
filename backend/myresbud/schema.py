@@ -19,6 +19,7 @@ class ResturantType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     resturants = graphene.List(ResturantType, search=graphene.String())
+    
 
     def resolve_resturants(self, info, search=None):
         if search:
@@ -26,6 +27,7 @@ class Query(graphene.ObjectType):
                 Q(name__icontains=search) |
                 Q(cuisines__icontains=search) |
                 Q(address__icontains=search) |
+                Q(price__icontains=search) |
                 Q(rating__icontains=search)
             )
             return Resturant.objects.filter(filter)
@@ -52,7 +54,11 @@ class CreateResturant(graphene.Mutation):
 
         passers = ZomatoObj.match(name)
         if passers is not None:
-            cuisines = passers[0][1]['cuisines']
+            j = passers[0][1]['cuisines']
+            if isinstance(j, str):
+                cuisines = j.split()
+            else:
+                cuisines = j
         else:
             cuisines = 'Unknown'
 

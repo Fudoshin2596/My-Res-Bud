@@ -38,6 +38,7 @@ const READ_RESTURANTS = gql`
       rating
       price
       phoneNumber
+      cuisines
     }
 }`;
 
@@ -79,7 +80,7 @@ function Home() {
     e.preventDefault();
     createResturant({ variables: { name: input.value } });
     input.value = '';
-    window.location.reload();
+    setTimeout(() => window.location.reload(), 1000);
     }}>
     <input className={classes.root} type="text" placeholder="Enter resturant name" ref={node => { input = node; }}></input>
     <Button variant="contained" color="primary" type="submit">Add</Button>
@@ -93,6 +94,7 @@ function Home() {
           <TableCell align="left">Rating</TableCell>
           <TableCell align="left">Price</TableCell>
           <TableCell align="left">Phone Number</TableCell>
+          <TableCell align="left">Cuisines</TableCell>
           {/* <TableCell align="left">Website</TableCell>  */}
           <TableCell align="left">Delete</TableCell>
         </TableRow>
@@ -107,6 +109,7 @@ function Home() {
             <TableCell align="left">{resturants.rating}</TableCell>
             <TableCell align="left">{resturants.price}</TableCell>
             <TableCell align="left">{resturants.phoneNumber}</TableCell>
+            <TableCell align="left">{resturants.cuisines}</TableCell>
             {/* <TableCell align="left">{resturants.website}</TableCell> */}
             <TableCell align="left">
             <Button

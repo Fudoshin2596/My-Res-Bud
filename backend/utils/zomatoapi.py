@@ -52,9 +52,9 @@ class Zomato:
 
         return process.extractOne(query, passers)
 
-ZomatoObj = Zomato()
-query = 'Le Coucou' 
+# ZomatoObj = Zomato()
+# query = 'Le Coucou' 
 
 
-passers = ZomatoObj.match(query)
-print(passers[0][1]['cuisines'])
+# passers = ZomatoObj.match(query)
+# print(passers[0][1]['cuisines'])
