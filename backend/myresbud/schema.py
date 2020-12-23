@@ -60,7 +60,7 @@ class CreateResturant(graphene.Mutation):
             else:
                 cuisines = j
         else:
-            cuisines = 'Unknown'
+            cuisines = ['Unknown']
 
         resturant = Resturant(name=info['name'], address=info['address'],
                     notes="", rating=info['rating'], price=info['price'],
