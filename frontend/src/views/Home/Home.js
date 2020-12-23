@@ -80,7 +80,7 @@ function Home() {
     e.preventDefault();
     createResturant({ variables: { name: input.value } });
     input.value = '';
-    setTimeout(() => window.location.reload(), 1000);
+    setTimeout(() => window.location.reload(), 1500);
     }}>
     <input className={classes.root} type="text" placeholder="Enter resturant name" ref={node => { input = node; }}></input>
     <Button variant="contained" color="primary" type="submit">Add</Button>
