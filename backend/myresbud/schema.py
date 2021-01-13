@@ -1,7 +1,10 @@
 import graphene
 from graphene_django import DjangoObjectType
+from graphene_django.filter import DjangoFilterConnectionField
+from graphene import relay
 from graphql import GraphQLError
 from django.db.models import Q
+import django_filters
 
 from .models import Resturant
 from users.schema import UserType
@@ -17,34 +20,36 @@ class ResturantType(DjangoObjectType):
         model = Resturant
 
 
-class QueryS(graphene.ObjectType):
+class Query(graphene.ObjectType):
     resturants = graphene.List(ResturantType, search=graphene.String())
 
-    def resolve_resturants(self, info, search=None):
+    def resolve_resturants(self, info, search=None, **kwargs):
         if search:
             filter = (
                 Q(name__icontains=search) |
                 Q(cuisines__icontains=search) |
                 Q(address__icontains=search) |
-                Q(price__exact=search)
+                Q(price__exact=search) |
+                Q(rating__gte=search)
             )
+
             return Resturant.objects.filter(filter)
 
         return Resturant.objects.all()
+
+
+class ResturantNode(DjangoObjectType):
+    class Meta:
+        # Assume you have an Animal model defined with the following fields
+        model = Resturant
+        filter_fields = {
+            'rating': ['exact', 'gte', 'gt']
+        }
+        interfaces = (relay.Node, )
 
 class QueryR(graphene.ObjectType):
-    resturants_rating = graphene.List(ResturantType, search=graphene.Float())
-
-    def resolve_resturant_rating(self, info, search=None):
-        if search:
-            filter = (
-                Q(rating__icontains=search) #|
-                # Q(rating__gte=search) |
-                # Q(rating__gt=search)
-            )
-            return Resturant.objects.filter(filter)
-
-        return Resturant.objects.all()
+    resturant = relay.Node.Field(ResturantNode)
+    all_resturants = DjangoFilterConnectionField(ResturantNode)
 
 class CreateResturant(graphene.Mutation):
     resturant = graphene.Field(ResturantType)

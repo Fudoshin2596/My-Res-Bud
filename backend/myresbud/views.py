@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from utils.df_response_lib import *
-from utils.ql_functions import GQL_SEARCH
+from utils.ql_functions import GQL_SEARCH, GQL_SEARCHR
 import json
 import random
 from itertools import islice, count
@@ -66,7 +66,7 @@ def webhook(request):
         except Exception as e:
             rating = 0
         
-        spec = GQL_SEARCH(rating)
+        spec = GQL_SEARCHR(rating)
 
     if intent == 'venues.eating_out.search.cuisine':
         if len(parameters['cuisine']) > 1:

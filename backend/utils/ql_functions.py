@@ -36,6 +36,39 @@ def GQL_SEARCH(query_term):
 
   return result['resturants']
 
+
+def GQL_SEARCHR(query_term):
+  transport = RequestsHTTPTransport(
+      url="http://localhost:8000/graphql/", verify=True, retries=3)
+
+  client = Client(transport=transport, fetch_schema_from_transport=True)
+
+  query = gql(
+      """
+      query SearchResturants($rating_Gte: Float) {
+        allResturants(rating_Gte: $rating_Gte) {
+          edges {
+            node {
+              name
+              address
+              cuisines
+              rating
+              price
+            }
+          }
+        }
+      }
+  """
+  )
+
+  params = {
+      "rating_Gte": query_term
+  }
+
+  result = client.execute(query, variable_values=params)
+
+  return result['resturants']
+  
     # SEARCH = Template("""{
     #         resturants(search: $search) {
     #             name
