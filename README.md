@@ -33,6 +33,7 @@ Deployment Link: TBU
 - Google Maps API
 - Google Dialogflow (Chatbot)
 - Zomato API
+- FuzzyWuzzy (Levenshtein Distance)
 
 #### Frontend
 

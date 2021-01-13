@@ -3,7 +3,8 @@ import myresbud.schema
 import users.schema
 # import graphql_jwt
 
-class Query(users.schema.Query, myresbud.schema.Query, graphene.ObjectType):
+
+class Query(users.schema.Query, myresbud.schema.QueryR, myresbud.schema.QueryS, graphene.ObjectType):
     pass
 
 class Mutation(users.schema.Mutation, myresbud.schema.Mutation, graphene.ObjectType):

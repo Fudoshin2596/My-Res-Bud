@@ -1,0 +1,9 @@
+django_phonenumber_field==5.0.0
+requests==2.25.0
+fuzzywuzzy==0.18.0
+googlemaps==4.4.2
+django_google_maps==0.12.2
+graphene_django==2.13.0
+gql==2.0.0
+Django==3.0.11
+graphene==2.1.8

@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from utils.df_response_lib import *
 from utils.ql_functions import GQL_SEARCH
 import json
+import random
 from itertools import islice, count
 
 
@@ -30,27 +31,51 @@ def home(request):
 def webhook(request): 
     # build a request object 
     req = json.loads(request.body) 
+    
     # get action from json 
     action = req.get('queryResult').get('action')
+    
+    # get intent from json
+    intent = req.get('queryResult').get('intent').get('displayName')
+    
     # get all params
     parameters = req.get('queryResult').get('parameters')
+    
     try:
         address = parameters['location']['street-address']
     except Exception as e:
         address = "New York"
-    try:
-        rating = get_rating(parameters)
-    except Exception as e:
-        rating = 0
-    
-    # sortparams = parameters['sort']
-    
-    if len(parameters['cuisine']) > 1:
-        cuisine = ''.join(parameters['cuisine'][0])
-    else:
-        cuisine = ''.join(parameters['cuisine'])
 
-    spec = GQL_SEARCH(cuisine)
+    if intent == 'venues.eating_out.search.pricelevel':
+        if parameters['pricelevel'] == "very cheap":
+            pricelevel = '$'
+        elif parameters['pricelevel'] == "cheap":
+            pricelevel = '$$'
+        elif parameters['pricelevel'] == "moderate":
+            pricelevel='$$$'
+        elif parameters['pricelevel'] == "any":
+            pricelevel = '$'*random.choice(range(1,5))
+        else:
+            pricelevel='$$$$'
+        
+        spec=GQL_SEARCH(pricelevel)
+
+    if intent == 'venues.eating_out.search.rating':
+        try:
+            rating = get_rating(parameters)
+        except Exception as e:
+            rating = 0
+        
+        spec = GQL_SEARCH(rating)
+
+    if intent == 'venues.eating_out.search.cuisine':
+        if len(parameters['cuisine']) > 1:
+            cuisine = ''.join(parameters['cuisine'][0])
+        else:
+            cuisine = ''.join(parameters['cuisine'])
+
+        spec = GQL_SEARCH(cuisine)
+    
     out = json.dumps(spec, indent=4)
     # return a fulfillment message 
     fulfillmentText = {'fulfillmentText': out} 

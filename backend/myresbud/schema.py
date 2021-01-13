@@ -17,9 +17,8 @@ class ResturantType(DjangoObjectType):
         model = Resturant
 
 
-class Query(graphene.ObjectType):
+class QueryS(graphene.ObjectType):
     resturants = graphene.List(ResturantType, search=graphene.String())
-    
 
     def resolve_resturants(self, info, search=None):
         if search:
@@ -27,13 +26,25 @@ class Query(graphene.ObjectType):
                 Q(name__icontains=search) |
                 Q(cuisines__icontains=search) |
                 Q(address__icontains=search) |
-                Q(price__icontains=search) |
-                Q(rating__icontains=search)
+                Q(price__exact=search)
             )
             return Resturant.objects.filter(filter)
 
         return Resturant.objects.all()
 
+class QueryR(graphene.ObjectType):
+    resturants_rating = graphene.List(ResturantType, search=graphene.Float())
+
+    def resolve_resturant_rating(self, info, search=None):
+        if search:
+            filter = (
+                Q(rating__icontains=search) #|
+                # Q(rating__gte=search) |
+                # Q(rating__gt=search)
+            )
+            return Resturant.objects.filter(filter)
+
+        return Resturant.objects.all()
 
 class CreateResturant(graphene.Mutation):
     resturant = graphene.Field(ResturantType)
@@ -114,8 +125,6 @@ class DeleteResturant(graphene.Mutation):
         resturant.delete()
 
         return DeleteResturant(id=id)
-
-
 
 class Mutation(graphene.ObjectType):
     create_resturant = CreateResturant.Field()
