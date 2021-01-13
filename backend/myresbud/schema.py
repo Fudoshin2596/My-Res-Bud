@@ -29,8 +29,7 @@ class Query(graphene.ObjectType):
                 Q(name__icontains=search) |
                 Q(cuisines__icontains=search) |
                 Q(address__icontains=search) |
-                Q(price__exact=search) |
-                Q(rating__gte=search)
+                Q(price__exact=search)
             )
 
             return Resturant.objects.filter(filter)
