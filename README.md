@@ -37,3 +37,14 @@ Deployment Link: TBU
 - Deploy and make available through public url
 - Add update functionality to frontend dashboard
 - Add User Authenticaiton
+
+## Screenshots
+
+#### GraphiQL backend 
+![GQL Backend](assets/GraphiQL_BackEnd.png)
+
+#### ChatBot frontend 
+![Chatbot](assets/Chat_Bot_FrontEnd.png)
+
+#### Dashboard frontend 
+![MaterialUI Table](assets/Dashboard_FrontEnd.png)
