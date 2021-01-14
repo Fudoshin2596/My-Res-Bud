@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "graphene_django",
     'django_google_maps',
     'phonenumber_field',
+    'rest_framework'
 ]
 
 # for improved interactive shell
@@ -157,10 +158,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = 'static'
+
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP_DIR, 'build', 'static'),
+]
+
