@@ -39,7 +39,6 @@ class Query(graphene.ObjectType):
 
 class ResturantNode(DjangoObjectType):
     class Meta:
-        # Assume you have an Animal model defined with the following fields
         model = Resturant
         filter_fields = {
             'rating': ['exact', 'gte', 'gt']

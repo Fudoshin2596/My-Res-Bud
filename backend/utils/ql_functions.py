@@ -67,7 +67,7 @@ def GQL_SEARCHR(query_term):
 
   result = client.execute(query, variable_values=params)
 
-  return result['resturants']
+  return result['allResturants']['edges']
   
     # SEARCH = Template("""{
     #         resturants(search: $search) {

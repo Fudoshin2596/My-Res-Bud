@@ -66,7 +66,7 @@ def webhook(request):
         except Exception as e:
             rating = 0
         
-        spec = GQL_SEARCHR(rating)
+        spec = GQL_SEARCHR(min(rating))
 
     if intent == 'venues.eating_out.search.cuisine':
         if len(parameters['cuisine']) > 1:
@@ -75,7 +75,8 @@ def webhook(request):
             cuisine = ''.join(parameters['cuisine'])
 
         spec = GQL_SEARCH(cuisine)
-    
+    maxitems = min(len(spec), 5)
+    spec = spec[:maxitems]
     out = json.dumps(spec, indent=4)
     # return a fulfillment message 
     fulfillmentText = {'fulfillmentText': out} 
