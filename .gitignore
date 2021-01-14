@@ -173,6 +173,7 @@ app/frontend/package.json
 app/frontend/yarn.lock
 app/static
 app/frontend/build
+backend/utils
 
 # dependencies
 /node_modules
