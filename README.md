@@ -45,7 +45,7 @@ Deployment Link: TBU
 ![GQL Backend](assets/GraphiQL_BackEnd.png)
 
 #### ChatBot frontend 
-![Chatbot](assets/Chat_Bot_FrontEnd.png)
+![Googele DialogFlow Chatbot](assets/Chat_Bot_FrontEnd.png)
 
 #### Dashboard frontend 
 ![MaterialUI Table](assets/Dashboard_FrontEnd.png)
