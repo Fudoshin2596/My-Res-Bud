@@ -26,14 +26,3 @@ render(<App />, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-// Random Old imports
-// import ReactDOM from "react-dom";
-// import ApolloClient from "apollo-boost";
-// import { ApolloProvider } from "@apollo/react-hooks";
-// import CreateResturant from "./components/Resturants/CreateResturant"
-// import ResturantList from "./components/Resturants/ResturantList"
-// import ChatBot from "./pages/ChatBot"
-// import Profile from "./pages/Profile"
-// import Chat from "./pages/Chat"
-// import ResturantQuery from './Root';

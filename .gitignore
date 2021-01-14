@@ -160,3 +160,38 @@ sketch
 
 # Google
 My-Res-Bud-d1b45a18dc42.json
+
+# Other
+OLD
+backend/utils/My-Res-Bud.code-workspace
+My-Res-Bud-d1b45a18dc42.json
+frontend/src/pages
+frontend/src/components/Resturants
+frontend/.eslintcache
+frontend/package-lock.json
+frontend/package.json
+frontend/yarn.lock
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# production
+/build
+
+# IDEs and editors
+/.idea
+/.vscode
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

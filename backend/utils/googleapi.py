@@ -43,6 +43,7 @@ class ResturantInfo:
                 'website': place_result['result']['website']
                 }
 
+#Random Tests
 
 # userlocation = 'New York, NY'
 # query = 'Citizens of Bleecker'

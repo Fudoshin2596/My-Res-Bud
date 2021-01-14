@@ -1,26 +1,39 @@
+# External Imports
 import graphene
+import django_filters
+from django.db.models import Q
+from graphene import relay
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
-from graphene import relay
-from graphql import GraphQLError
-from django.db.models import Q
-import django_filters
+# from graphql import GraphQLError
 
+#Local imports
 from .models import Resturant
-from users.schema import UserType
-
 from utils.googleapi import ResturantInfo
 from utils.googleapi import GMAPS_API_KEY
 from utils.zomatoapi import Zomato
 
+
+############################### BASE CLASSES ##############################
 ZomatoObj = Zomato()
 
 class ResturantType(DjangoObjectType):
     class Meta:
         model = Resturant
 
+class ResturantNode(DjangoObjectType):
+    class Meta:
+        model = Resturant
+        filter_fields = {
+            'rating': ['exact', 'gte', 'gt']
+        }
+        interfaces = (relay.Node, )
 
+############################### QUERY CLASSES ##############################
 class Query(graphene.ObjectType):
+    """
+    Basic query with search functionality on String feilds 
+    """
     resturants = graphene.List(ResturantType, search=graphene.String())
 
     def resolve_resturants(self, info, search=None, **kwargs):
@@ -36,19 +49,15 @@ class Query(graphene.ObjectType):
 
         return Resturant.objects.all()
 
-
-class ResturantNode(DjangoObjectType):
-    class Meta:
-        model = Resturant
-        filter_fields = {
-            'rating': ['exact', 'gte', 'gt']
-        }
-        interfaces = (relay.Node, )
-
 class QueryR(graphene.ObjectType):
+    """
+    Basic relay node query with search functionality on Float feilds
+    """
     resturant = relay.Node.Field(ResturantNode)
     all_resturants = DjangoFilterConnectionField(ResturantNode)
 
+
+############################### MUTATION CLASSES ##############################
 class CreateResturant(graphene.Mutation):
     resturant = graphene.Field(ResturantType)
 
@@ -63,9 +72,11 @@ class CreateResturant(graphene.Mutation):
         # if user.is_anonymous:
         #     raise GraphQLError('Log in to add a resturant.')
 
+        # Get meta data from Google Place API
         ResturantObject = ResturantInfo(name, GMAPS_API_KEY, userlocation)
         info = ResturantObject.placeInfo()
 
+        # Get meta data from Zomato API, passers are those names that passed the Levenshtein Distance match test
         passers = ZomatoObj.match(name)
         if passers is not None:
             j = passers[0][1]['cuisines']

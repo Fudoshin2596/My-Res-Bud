@@ -1,14 +1,17 @@
-from fuzzywuzzy import fuzz, process
-
 import requests
 import json
 import os
+
+from fuzzywuzzy import fuzz, process
 from dotenv import load_dotenv
 load_dotenv()
 
 
 class Zomato:
     def __init__(self):
+        """
+        Default location is New York City to help minimize results and find accurate matches
+        """
         self.user_key = os.getenv("ZOMATO_API_KEY")
         self._base_url = "https://developers.zomato.com/api/v2.1/"
         self._entity_type = 'city'
@@ -45,16 +48,15 @@ class Zomato:
         ResturantsInfo = self.restaurant_query_search(query=query)
         passers = []
         for item in ResturantsInfo.items():
-            # print(item)
-            # print(item[0])
             if fuzz.ratio(query.lower(), item[0].lower()) > 90:
                 passers.append(item)
 
         return process.extractOne(query, passers)
 
+
+# Random Test
+
 # ZomatoObj = Zomato()
 # query = 'Le Coucou' 
-
-
 # passers = ZomatoObj.match(query)
 # print(passers[0][1]['cuisines'])

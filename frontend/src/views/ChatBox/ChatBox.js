@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Container from '@material-ui/core/Container';
 
+// GoogelDialogFlow Basic ChatBox Utility
 function ChatBox() {
   return (
     <Container >
@@ -11,6 +12,7 @@ function ChatBox() {
   );
 }
 
+// Kommunicate ChatBox Utility
 class XChatBox extends Component {
   constructor(props) {
     super(props);
@@ -31,4 +33,5 @@ render() {
   }
 
 }
+
 export default ChatBox;

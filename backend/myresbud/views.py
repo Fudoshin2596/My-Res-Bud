@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from utils.df_response_lib import *
+# from utils.df_response_lib import *
 from utils.ql_functions import GQL_SEARCH, GQL_SEARCHR
 import json
 import random
@@ -9,12 +9,18 @@ from itertools import islice, count
 
 
 def iter_range(start, stop, step):
+    """
+    utility to help build float-type ranges
+    """
     if step == 0:
         raise ValueError("Step could not be NULL")
     length = int(abs(stop - start) / step)
     return islice(count(start, step), length)
 
 def get_rating(parameters):
+    """
+    Utility to help build list of float ranges based on Google DialogFlow string rating categories, such as >4.5
+    """
     rating_condition = parameters['rating'].split(" ")[0]
     rating_scale = float(parameters['rating'].split(" ")[1])
     if rating_condition == '>':
@@ -41,6 +47,7 @@ def webhook(request):
     # get all params
     parameters = req.get('queryResult').get('parameters')
     
+    # get location or set default NY
     try:
         address = parameters['location']['street-address']
     except Exception as e:
@@ -75,10 +82,15 @@ def webhook(request):
             cuisine = ''.join(parameters['cuisine'])
 
         spec = GQL_SEARCH(cuisine)
+
+    # Show only top 5 options    
     maxitems = min(len(spec), 5)
     spec = spec[:maxitems]
+
     out = json.dumps(spec, indent=4)
+    
     # return a fulfillment message 
     fulfillmentText = {'fulfillmentText': out} 
+    
     # return response 
     return JsonResponse(fulfillmentText, safe=False)
