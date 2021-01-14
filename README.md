@@ -1,3 +1,4 @@
+![MRB Logo](assets/logo.png)
 # My Res Bud App
 
 Favorite resturant database and resturant reccomendation chatbot
